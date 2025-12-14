@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sweet Shop</title>
+</head>
+<body>
+
+<h2>Add Sweet</h2>
+
+<input id="name" placeholder="Sweet name"><br><br>
+<input id="price" placeholder="Price"><br><br>
+<input id="quantity" placeholder="Quantity"><br><br>
+
+<button onclick="addSweet()">Add Sweet</button>
+
+<h3>Result</h3>
+<pre id="result"></pre>
+
+<script>
+function addSweet() {
+    const sweet = {
+        name: document.getElementById("name").value,
+        price: document.getElementById("price").value,
+        quantity: document.getElementById("quantity").value
+    };
+
+    fetch("http://localhost:8081/api/sweets", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(sweet)
+    })
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("result").innerText = data;
+    })
+    .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>
